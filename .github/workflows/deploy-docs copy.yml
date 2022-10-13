@@ -1,0 +1,22 @@
+name: Deploy Storybook
+
+# Quando executar o workflow
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    # Comando para o deploy rodar
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      # Instala somente as dependências de produção do projeto / Não mexe no packagem.lock.json
+      - run: npm ci
